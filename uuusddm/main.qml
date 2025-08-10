@@ -12,6 +12,7 @@ Item {
     height: parent.height
     width: parent.width
     z: 0
+    color: config.colorBackground
   }
   Image {
     id: backgroundImage
@@ -19,11 +20,23 @@ Item {
     height: parent.height
     width: parent.width
     fillMode: Image.PreserveAspectCrop
-    source: "/home/uuu/.config/colours/background.jpg"
-    z: 0
+    source: config.backgroundImage
+    z: 1
     asynchronous: false
     cache: true
     mipmap: true
     clip: true
+  }
+  Item {
+    id: mainPanel
+    z: 2
+    height: parent.height
+    width: parent.width
+    Rectangle {
+      width: 500
+      height: 60
+      color: config.colorBackground
+      anchors.centerIn: parent
+    }
   }
 }
