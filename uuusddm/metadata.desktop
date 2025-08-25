@@ -1,15 +1,16 @@
 [SddmGreeterTheme]
-Name=uuusddm
+Name=uuusddm plasma 6
 Description=uuu theme for sddm
-Author=uuupah
+Author=uuu
+Copyright=
+License=
 Type=sddm-theme
-Version=20250807
-Website=https://github.com/uuupah/uuusddm
-#Screenshot=preview.png
+Version=20250825
+Website=
+Screenshot=
 MainScript=main.qml
 ConfigFile=theme.conf
+TranslationsDirectory=translations
 Theme-Id=uuusddm
 Theme-API=2.0
 QtVersion=6
-
-
