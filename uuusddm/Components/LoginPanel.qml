@@ -52,7 +52,7 @@ Item {
   }
   Column {
     id: column
-    spacing: 8
+    spacing: 0
     z: 5
     width: inputWidth
     anchors {
@@ -61,7 +61,8 @@ Item {
     }
     Row {
       width: parent.width
-      height: 30
+      height: 16
+      // spacing: -8
       Text {
         anchors {
           verticalCenter: parent.verticalCenter
@@ -88,101 +89,136 @@ Item {
           pixelSize: config.FontSize
           bold: false
         }
+        background: transparent
         color: config.foreground
         width: 300 // TODO set this in config
         text: userModel.lastUser
       }
     }
-    RowLayout {
+    Row {
+      width: parent.width
+      height: 16
       id: row
-      spacing: 8
+      spacing: 0
       anchors {
         verticalCenter: userField
         horizontalCenter: parent.horizontalCenter
       }
-      PasswordField {
+      Text {
+        anchors {
+          verticalCenter: parent.verticalCenter
+        }
+        font {
+          family: config.Font
+          pixelSize: 16
+        }
+        renderType: Text.NativeRendering
+        color: config.foreground
+        text: "password: "
+      }
+      TextField {
         id: passwordField
+        focus: true
+        selectByMouse: true
+        placeholderTextColor: config.textPlaceholder
+        echoMode: TextInput.Password
+        passwordCharacter: "*"
+        passwordMaskDelay: config.PasswordShowLastLetter
+        selectionColor: config.textDefault
+        renderType: Text.NativeRendering
+        anchors {
+          verticalCenter: parent.verticalCenter
+        }
+        font {
+          family: config.Font
+          pixelSize: config.FontSize
+          bold: false
+        }
+        color: config.foreground
+        width: 300 // TODO set this in config
+        background: transparent
         Layout.preferredWidth: (inputWidth - loginButton.width - row.spacing)
         Layout.preferredHeight: 30
-        onAccepted: loginButton.clicked()
+        // onAccepted: loginButton.clicked()
+        onAccepted: sddm.login(user, password, session)
       }
-      Button {
-        id: loginButton
-        Layout.preferredWidth: 30
-        Layout.preferredHeight: 30
-        enabled: user != "" && password != "" ? true : false
-        hoverEnabled: true
-        icon {
-          source: Qt.resolvedUrl("../icons/login.svg")
-          color: config.textDefault
-        }
-        background: Rectangle {
-          id: buttonBackground
-          gradient: Gradient {
-            GradientStop { id: gradientStop0; position: 0.0; color: config.buttonBgNormal }
-            GradientStop { id: gradientStop1; position: 1.0; color: config.buttonBgNormal }
-          }
-          border.color: config.buttonBorderNormal
-          border.width: 1
-          radius: 2
-          opacity: config.opacityDefault
-        }
-        states: [
-          State {
-            name: "pressed"
-            when: loginButton.down
-            PropertyChanges {
-              target: buttonBackground
-              border.color: config.buttonBorderPressed
-              opacity: 1
-            }
-            PropertyChanges {
-              target: gradientStop0
-              color: config.buttonBgPressed
-            }
-            PropertyChanges {
-              target: gradientStop1
-              color: config.buttonBgPressed
-            }
-          },
-          State {
-            name: "hovered"
-            when: loginButton.hovered
-            PropertyChanges {
-              target: buttonBackground
-              border.color: config.buttonBorderHovered
-              opacity: 1
-            }
-            PropertyChanges {
-              target: gradientStop0
-              color: config.buttonBgHovered0
-            }
-            PropertyChanges {
-              target: gradientStop1
-              color: config.buttonBgHovered1
-            }
-          },
-          State {
-            name: "enabled"
-            when: loginButton.enabled
-            PropertyChanges {
-              target: buttonBackground
-            }
-            PropertyChanges {
-              target: buttonBackground
-            }
-          }
-        ]
-        transitions: Transition {
-          PropertyAnimation {
-            properties: "color"
-            duration: 300
-          }
-        }
-        onClicked: {
-          sddm.login(user, password, session)
-        }
-      }
+      // Button {
+      //   id: loginButton
+      //   Layout.preferredWidth: 30
+      //   Layout.preferredHeight: 30
+      //   enabled: user != "" && password != "" ? true : false
+      //   hoverEnabled: true
+      //   icon {
+      //     source: Qt.resolvedUrl("../icons/login.svg")
+      //     color: config.textDefault
+      //   }
+      //   background: Rectangle {
+      //     id: buttonBackground
+      //     gradient: Gradient {
+      //       GradientStop { id: gradientStop0; position: 0.0; color: config.buttonBgNormal }
+      //       GradientStop { id: gradientStop1; position: 1.0; color: config.buttonBgNormal }
+      //     }
+      //     border.color: config.buttonBorderNormal
+      //     border.width: 1
+      //     radius: 2
+      //     opacity: config.opacityDefault
+      //   }
+      //   states: [
+      //     State {
+      //       name: "pressed"
+      //       when: loginButton.down
+      //       PropertyChanges {
+      //         target: buttonBackground
+      //         border.color: config.buttonBorderPressed
+      //         opacity: 1
+      //       }
+      //       PropertyChanges {
+      //         target: gradientStop0
+      //         color: config.buttonBgPressed
+      //       }
+      //       PropertyChanges {
+      //         target: gradientStop1
+      //         color: config.buttonBgPressed
+      //       }
+      //     },
+      //     State {
+      //       name: "hovered"
+      //       when: loginButton.hovered
+      //       PropertyChanges {
+      //         target: buttonBackground
+      //         border.color: config.buttonBorderHovered
+      //         opacity: 1
+      //       }
+      //       PropertyChanges {
+      //         target: gradientStop0
+      //         color: config.buttonBgHovered0
+      //       }
+      //       PropertyChanges {
+      //         target: gradientStop1
+      //         color: config.buttonBgHovered1
+      //       }
+      //     },
+      //     State {
+      //       name: "enabled"
+      //       when: loginButton.enabled
+      //       PropertyChanges {
+      //         target: buttonBackground
+      //       }
+      //       PropertyChanges {
+      //         target: buttonBackground
+      //       }
+      //     }
+      //   ]
+      //   transitions: Transition {
+      //     PropertyAnimation {
+      //       properties: "color"
+      //       duration: 300
+      //     }
+      //   }
+      //   onClicked: {
+      //     sddm.login(user, password, session)
+      //   }
+      // }
     }
   }
   Connections {
