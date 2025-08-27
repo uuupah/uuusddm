@@ -149,7 +149,7 @@ Item {
     target: sddm
 
     function onLoginFailed() {
-      passwordField.text = "authentication failed"
+      passwordField.text = ""
       passwordField.focus = true
     }
   }
