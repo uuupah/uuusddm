@@ -22,7 +22,7 @@ TextField {
     color: config.lineeditBgNormal
     border.color: config.lineeditBorderNormal
     border.width: 1
-    radius: 2
+    radius: 0
     opacity: config.opacityDefault
   }
   states: [

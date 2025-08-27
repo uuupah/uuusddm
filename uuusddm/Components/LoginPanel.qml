@@ -59,10 +59,39 @@ Item {
       verticalCenter: parent.verticalCenter
       horizontalCenter: parent.horizontalCenter
     }
-    UserField {
-      id: userField
-      height: 30
+    Row {
       width: parent.width
+      height: 30
+      Text {
+        anchors {
+          verticalCenter: parent.verticalCenter
+        }
+        font {
+          family: config.Font
+          pixelSize: 16
+        }
+        renderType: Text.NativeRendering
+        color: config.foreground
+        text: "username: "
+      }
+      TextField {
+        id: userField
+        selectByMouse: true
+        echoMode: TextInput.Normal
+        selectionColor: config.dim
+        renderType: Text.NativeRendering
+        anchors {
+          verticalCenter: parent.verticalCenter
+        }
+        font {
+          family: config.Font
+          pixelSize: config.FontSize
+          bold: false
+        }
+        color: config.foreground
+        width: 300 // TODO set this in config
+        text: userModel.lastUser
+      }
     }
     RowLayout {
       id: row
@@ -160,7 +189,7 @@ Item {
     target: sddm
 
     function onLoginFailed() {
-      passwordField.text = ""
+      passwordField.text = "authentication failed"
       passwordField.focus = true
     }
   }

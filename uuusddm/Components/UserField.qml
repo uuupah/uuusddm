@@ -13,40 +13,10 @@ TextField {
     bold: false
   }
   color: config.textDefault
-  horizontalAlignment: Text.AlignHLeft
-  placeholderText: "Username"
-  placeholderTextColor: config.textPlaceholder
+  width: 300 // TODO set this in config
   text: userModel.lastUser
   background: Rectangle {
     id: userFieldBackground
-    color: config.lineeditBgNormal
-    border.color: config.lineeditBorderNormal
-    border.width: 1
-    radius: 2
-    opacity: config.opacityDefault
-  }
-  states: [
-    State {
-      name: "hovered"
-      when: userField.hovered
-      PropertyChanges {
-        target: userFieldBackground
-        border.color: config.lineeditBorderHovered
-      }
-    },
-    State {
-      name: "focused"
-      when: userField.activeFocus
-      PropertyChanges {
-        target: userFieldBackground
-        border.color: config.lineeditBorderFocused
-      }
-    }
-  ]
-  transitions: Transition {
-    PropertyAnimation {
-      properties: "color"
-      duration: 300
-    }
+    color: config.background
   }
 }
