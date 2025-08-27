@@ -1,33 +1,37 @@
-import QtQuick 2.15
-import SddmComponents 2.0
+import QtQuick 2.0
 
-Loader {
-    id: clockLoader
-    sourceComponent: Clock {
+Column {
+    id: container
+
+    property date dateTime: new Date()
+    property color color: "white"
+    property alias timeFont: time.font
+    property alias dateFont: date.font
+
+    Timer {
+        interval: 100; running: true; repeat: true;
+        onTriggered: container.dateTime = new Date()
+    }
+
+    Text {
         id: time
-        color: config.textDefault
-        timeFont.family: config.Font
-        dateFont.family: config.Font
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        color: container.color
+
+        text : Qt.formatTime(container.dateTime, "hh:mm")
+
+        font.pointSize: 72
     }
 
-    anchors {
-        topMargin: parent.height * 0.12
-        top: parent.top
-    }
+    Text {
+        id: date
+        anchors.horizontalCenter: parent.horizontalCenter
 
-    Component.onCompleted: {
-        switch (config.ClockPosition) {
-            case "left":
-                time.anchors.left = parent.left
-                break
-            case "right":
-                time.anchors.right = parent.right
-                break
-            case "center":
-                time.anchors.horizontalCenter = parent.horizontalCenter
-                break
-            default:
-                console.warn("Unsupported clock position:", config.ClockPosition)
-        }
+        color: container.color
+
+        text : Qt.formatDate(container.dateTime, Qt.DefaultLocaleLongDate)
+
+        font.pointSize: 24
     }
 }

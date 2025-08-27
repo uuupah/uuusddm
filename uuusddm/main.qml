@@ -13,7 +13,7 @@ Item {
     height: parent.height
     width: parent.width
     z: 0
-    color: config.bgDefault
+    color: config.background
   }
   Image {
     id: backgroundImage
@@ -23,7 +23,7 @@ Item {
     fillMode: Image.PreserveAspectCrop
     visible: config.CustomBackground == "true" ? true : false
     z: 1
-    source: config.Background
+    source: config.wallpaper
     asynchronous: false
     cache: true
     mipmap: true
@@ -34,13 +34,22 @@ Item {
     z: 3
     anchors {
       fill: parent
-      leftMargin: Screen.width * 0.02
-      rightMargin: Screen.width * 0.02
-      bottomMargin: Screen.height * 0.02
     }
-    Clock {
+    property date dateTime: new Date()
+    Timer {
+        interval: 100; running: true; repeat: true;
+        onTriggered: clock.dateTime = new Date()
+    }
+    Text {
       id: time
-      visible: config.ClockEnabled == "true" ? true : false
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.verticalCenterOffset: -500
+      color: config.foreground
+      text : Qt.formatDateTime(mainPanel.dateTime, "yyyy年MM月dd日 HH:mm:ss")
+      font.pixelSize: 16
+      font.family: config.ClockFont
+      renderType: Text.NativeRendering
     }
     LoginPanel {
       id: loginPanel

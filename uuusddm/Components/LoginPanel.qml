@@ -8,19 +8,20 @@ Item {
   property var password: passwordField.text
   property var session: sessionPanel.session
   property var inputHeight: 144
-  property var inputWidth: 256
+  property var inputWidth: 444
+  height: parent.height
+  width: parent.width
   Rectangle {
     id: loginBackground
-    anchors {
-      verticalCenter: parent.verticalCenter
-      horizontalCenter: parent.horizontalCenter
-    }
-    height: inputHeight * 1.5
-    width: inputWidth * 1.5
-    radius: 4
-    visible: config.LoginBackground == "true" ? true : false
-    color: config.bgDark
-    opacity: config.opacityPanel
+    anchors.centerIn: parent
+    height: 62
+    width: 502
+    radius: 0
+    border.color: config.foreground
+    border.width: 1
+    // visible: config.LoginBackground == "true" ? true : false
+    visible: true
+    color: config.background
   }
   Column {
     spacing: 8
@@ -52,17 +53,17 @@ Item {
   }
   Column {
     id: column
-    spacing: 0
+    spacing: -4
     z: 5
     width: inputWidth
     anchors {
-      verticalCenter: parent.verticalCenter
-      horizontalCenter: parent.horizontalCenter
+      verticalCenter: loginBackground.verticalCenter
+      horizontalCenter: loginBackground.horizontalCenter
     }
     Row {
       width: parent.width
       height: 16
-      // spacing: -8
+      spacing: -4
       Text {
         anchors {
           verticalCenter: parent.verticalCenter
@@ -91,15 +92,15 @@ Item {
         }
         background: transparent
         color: config.foreground
-        width: 300 // TODO set this in config
+        width: inputWidth // TODO set this in config
         text: userModel.lastUser
       }
     }
     Row {
       width: parent.width
       height: 16
-      id: row
-      spacing: 0
+      id: passwordRow
+      spacing: -4
       anchors {
         verticalCenter: userField
         horizontalCenter: parent.horizontalCenter
@@ -135,90 +136,13 @@ Item {
           bold: false
         }
         color: config.foreground
-        width: 300 // TODO set this in config
+        width: inputWidth // TODO set this in config
         background: transparent
         Layout.preferredWidth: (inputWidth - loginButton.width - row.spacing)
         Layout.preferredHeight: 30
         // onAccepted: loginButton.clicked()
         onAccepted: sddm.login(user, password, session)
       }
-      // Button {
-      //   id: loginButton
-      //   Layout.preferredWidth: 30
-      //   Layout.preferredHeight: 30
-      //   enabled: user != "" && password != "" ? true : false
-      //   hoverEnabled: true
-      //   icon {
-      //     source: Qt.resolvedUrl("../icons/login.svg")
-      //     color: config.textDefault
-      //   }
-      //   background: Rectangle {
-      //     id: buttonBackground
-      //     gradient: Gradient {
-      //       GradientStop { id: gradientStop0; position: 0.0; color: config.buttonBgNormal }
-      //       GradientStop { id: gradientStop1; position: 1.0; color: config.buttonBgNormal }
-      //     }
-      //     border.color: config.buttonBorderNormal
-      //     border.width: 1
-      //     radius: 2
-      //     opacity: config.opacityDefault
-      //   }
-      //   states: [
-      //     State {
-      //       name: "pressed"
-      //       when: loginButton.down
-      //       PropertyChanges {
-      //         target: buttonBackground
-      //         border.color: config.buttonBorderPressed
-      //         opacity: 1
-      //       }
-      //       PropertyChanges {
-      //         target: gradientStop0
-      //         color: config.buttonBgPressed
-      //       }
-      //       PropertyChanges {
-      //         target: gradientStop1
-      //         color: config.buttonBgPressed
-      //       }
-      //     },
-      //     State {
-      //       name: "hovered"
-      //       when: loginButton.hovered
-      //       PropertyChanges {
-      //         target: buttonBackground
-      //         border.color: config.buttonBorderHovered
-      //         opacity: 1
-      //       }
-      //       PropertyChanges {
-      //         target: gradientStop0
-      //         color: config.buttonBgHovered0
-      //       }
-      //       PropertyChanges {
-      //         target: gradientStop1
-      //         color: config.buttonBgHovered1
-      //       }
-      //     },
-      //     State {
-      //       name: "enabled"
-      //       when: loginButton.enabled
-      //       PropertyChanges {
-      //         target: buttonBackground
-      //       }
-      //       PropertyChanges {
-      //         target: buttonBackground
-      //       }
-      //     }
-      //   ]
-      //   transitions: Transition {
-      //     PropertyAnimation {
-      //       properties: "color"
-      //       duration: 300
-      //     }
-      //   }
-      //   onClicked: {
-      //     sddm.login(user, password, session)
-      //   }
-      // }
     }
   }
   Connections {
