@@ -38,7 +38,7 @@ Item {
     property date dateTime: new Date()
     Timer {
         interval: 100; running: true; repeat: true;
-        onTriggered: clock.dateTime = new Date()
+        onTriggered: mainPanel.dateTime = new Date()
     }
     Text {
       id: time

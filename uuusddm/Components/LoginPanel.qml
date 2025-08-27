@@ -23,33 +23,21 @@ Item {
     visible: true
     color: config.background
   }
-  Column {
-    spacing: 8
+  PowerButton {
+    id: powerButton
     anchors {
       bottom: parent.bottom
       left: parent.left
+      margins: 8
     }
-    PowerButton {
-      id: powerButton
-    }
-    RebootButton {
-      id: rebootButton
-    }
-    SleepButton {
-      id: sleepButton
-    }
-    z: 5
   }
-  Column {
-    spacing: 8
+  SessionPanel {
     anchors {
       bottom: parent.bottom
       right: parent.right
+      margins: 8
     }
-    SessionPanel {
-      id: sessionPanel
-    }
-    z: 5
+    id: sessionPanel
   }
   Column {
     id: column
@@ -138,9 +126,6 @@ Item {
         color: config.foreground
         width: inputWidth // TODO set this in config
         background: transparent
-        Layout.preferredWidth: (inputWidth - loginButton.width - row.spacing)
-        Layout.preferredHeight: 30
-        // onAccepted: loginButton.clicked()
         onAccepted: sddm.login(user, password, session)
       }
     }
