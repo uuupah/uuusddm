@@ -8,7 +8,8 @@ Item {
   property var password: passwordField.text
   property var session: sessionPanel.session
   property var inputHeight: 144
-  property var inputWidth: 182
+  property var colWidth: 182
+  property var passwordInputWidth: 120
   height: parent.height
   width: parent.width
   Rectangle {
@@ -43,7 +44,7 @@ Item {
     id: column
     spacing: -4
     z: 5
-    width: inputWidth
+    width: colWidth
     anchors {
       verticalCenter: loginBackground.verticalCenter
       horizontalCenter: loginBackground.horizontalCenter
@@ -80,7 +81,7 @@ Item {
         }
         background: transparent
         color: config.foreground
-        width: inputWidth // TODO set this in config
+        width: colWidth // TODO set this in config
         text: userModel.lastUser
       }
     }
@@ -124,7 +125,7 @@ Item {
           bold: false
         }
         color: config.foreground
-        width: inputWidth // TODO set this in config
+        width: passwordInputWidth
         background: transparent
         onAccepted: sddm.login(user, password, session)
       }
