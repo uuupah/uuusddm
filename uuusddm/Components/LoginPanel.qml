@@ -8,14 +8,14 @@ Item {
   property var password: passwordField.text
   property var session: sessionPanel.session
   property var inputHeight: 144
-  property var inputWidth: 444
+  property var inputWidth: 182
   height: parent.height
   width: parent.width
   Rectangle {
     id: loginBackground
     anchors.centerIn: parent
-    height: 62
-    width: 502
+    height: 64
+    width: 218
     radius: 0
     border.color: config.foreground
     border.width: 1
